@@ -1,0 +1,19 @@
+{% extends 'base_layout.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="d-flex flex-column align-items-center user-div">
+        <div class="form-group col-sm-2">
+            <label for="inputUsername">Username</label>
+            <input type="text" class="form-control" id="inputUsername" placeholder="Enter Username"/>
+        </div>
+        <div class="form-group col-sm-2">
+            <label for="inputPassword">Password</label>
+            <input type="password" class="form-control" id="inputPassword" placeholder="Password"/>
+        </div>
+        <div class="col-2">
+            <a class="btn btn-outline-success" type="button" href="/login">Submit</a>
+        </div>
+    </div>
+{% endblock %}

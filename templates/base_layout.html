@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Project1 - {% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/index.css"/>
+    </head>
+    <body>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand mb-0 h1" href="/">Books</a>
+
+            <a class="nav-link active mr-auto" href="#">Users</a>
+            <a class="btn btn-outline-secondary mr-1" type="button" href="/login">Login</a>
+            <a class="btn btn-outline-success mr-1" type="button" href="/signup">Signup</a>
+
+        </nav>
+        <div class="block-content">
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+
+</html>
