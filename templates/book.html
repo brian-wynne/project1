@@ -1,0 +1,47 @@
+{% extends 'base_layout.html' %}
+
+{% block title %}Book{% endblock %}
+
+{% block content %}
+    <div>
+    {% if book %}
+        <dl>
+            <dt>ISBN:</dt>
+            <dd>{{ book.isbn }}</dd>
+            <dt>Title:</dt>
+            <dd>{{ book.title }}</dd>
+            <dt>Author:</dt>
+            <dd>{{ book.author }}</dd>
+            <dt>Year:</dt>
+            <dd>{{ book.year }}</dd>
+        </dl>
+        <div>
+            <h4 class="text-muted">Reviews</h4>
+            {% if api %}
+                <dl>
+                    <dt># of Ratings:</dt>
+                    <dd>{{ api.books[0].ratings_count }}</dd>
+                    <dt># of Reviews:</dt>
+                    <dd>{{ api.books[0].reviews_count }}</dd>
+                    <dt># of Work Reviews</dt>
+                    <dd>{{ api.books[0].work_reviews_count }}</dd>
+                    <dt>Average Rating:</dt>
+                    <dd>{{ api.books[0].average_rating }}</dd>
+                </dl>
+            {% endif %}
+            {% if reviews %}
+            <div>
+                {{ reviews }}
+            </div>
+            {% endif %}
+        </div>
+        <div>
+            <form action="/book/{{ book.isbn }}" method="POST">
+                <textarea id="book_review" name="inputReview" rows="10" cols="30">Leave a review.</textarea>
+                <input type="hidden" name="inputRating" value="5"/>
+                <button class="btn btn-outline-success" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -3,17 +3,29 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-    <div class="d-flex flex-column align-items-center user-div">
-        <div class="form-group col-sm-2">
-            <label for="inputUsername">Username</label>
-            <input type="text" class="form-control" id="inputUsername" placeholder="Enter Username"/>
+    {% block content_form %}
+    <form action="/login" method="POST">
+    {% endblock %}
+        <div class="d-flex flex-column align-items-center user-div">
+            <div class="form-group col-sm-2">
+                <label for="inputUsername">Username</label>
+                <input type="text" class="form-control" name="inputUsername" placeholder="Enter Username"/>
+            </div>
+            <div class="form-group col-sm-2">
+                <label for="inputPassword">Password</label>
+                <input type="password" class="form-control" name="inputPassword" placeholder="Password"/>
+            </div>
+            {% block confirm_password %}{% endblock %}
+            {% block invalid_warning %}
+                {% if invalid_login %}
+                    <span class="text-danger col-2">The username/password does not exists</span>
+                {% endif %}
+            {% endblock %}
+            {% block confirm_button %}
+                <div class="col-2">
+                    <button class="btn btn-outline-success" type="submit">Submit</button>
+                </div>
+            {% endblock %}
         </div>
-        <div class="form-group col-sm-2">
-            <label for="inputPassword">Password</label>
-            <input type="password" class="form-control" id="inputPassword" placeholder="Password"/>
-        </div>
-        <div class="col-2">
-            <a class="btn btn-outline-success" type="button" href="/login">Submit</a>
-        </div>
-    </div>
+    </form>
 {% endblock %}

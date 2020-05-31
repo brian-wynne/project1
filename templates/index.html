@@ -3,5 +3,20 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <h1>Hello!</h1>
+    {% if not user %}
+         <h5>Please login or create an account</h5>
+    {% else %}
+         <div class="container col-2 align-center">
+            <h5>Welcome to localhost.com!</h5>
+         </div>
+         <form action="/search" method="POST">
+            <div class="container col-4 form-group" style="margin-top: 200px;">
+                <label for="inputSearch">Search for book</label>
+                <input type="text" class="form-control" name="inputSearch" placeholder="Enter ISBN, Author, Title, or Year"/>
+                <div class="form-group" style="margin-top: 5px;">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </div>
+            </div>
+         </form>
+    {% endif %}
 {% endblock %}

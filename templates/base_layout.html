@@ -11,8 +11,13 @@
             <a class="navbar-brand mb-0 h1" href="/">Books</a>
 
             <a class="nav-link active mr-auto" href="#">Users</a>
-            <a class="btn btn-outline-secondary mr-1" type="button" href="/login">Login</a>
-            <a class="btn btn-outline-success mr-1" type="button" href="/signup">Signup</a>
+            {% if not user %}
+                <a class="btn btn-outline-secondary mr-1" type="button" href="/login">Login</a>
+                <a class="btn btn-outline-success mr-1" type="button" href="/signup">Signup</a>
+            {% else %}
+                <span class="text-muted" style="margin: 10px;">[Logged in as {{ user }}]</span>
+                <a class="btn btn-outline-secondary mr-1" type="button" href="/logout">Logout</a>
+            {% endif %}
 
         </nav>
         <div class="block-content">
