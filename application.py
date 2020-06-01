@@ -34,11 +34,11 @@ def login():
         name = request.form.get('inputUsername')
         pswd = request.form.get('inputPassword')
 
-        results = db.execute(f"SELECT username, passwrd FROM users WHERE username='{name}' AND passwrd='{pswd}'")
+        results = db.execute(f"SELECT username, passwrd FROM users WHERE LOWER(username)='{name.lower()}' AND passwrd='{pswd}'")
         row = results.fetchone()
 
         if row is not None:     # Username found, password was correct
-            session['user'] = name
+            session['user'] = name.upper()
             return redirect('/')
         else:
             return render_template('login.html', invalid_login=True)
@@ -55,8 +55,8 @@ def signup():
         pswd = request.form.get("inputPassword")
         pswd_c = request.form.get("inputConfirmPassword")
 
-        if pswd == pswd_c:
-            results = db.execute(f"SELECT username FROM users WHERE username='{name}'")
+        if pswd == pswd_c and len(pswd) >= 8:
+            results = db.execute(f"SELECT username FROM users WHERE LOWER(username)='{name.lower()}'")
             row = results.fetchone()
 
             if row is not None:     # If username already exists
@@ -64,10 +64,12 @@ def signup():
             else:       # If the username does not exist we want to create the new user
                 db.execute(f"INSERT INTO users (username, passwrd) VALUES ('{name}', '{pswd}')")
                 db.commit()
-                session["user"] = name
+                session["user"] = name.upper()
                 return redirect('/')
-        else:
+        elif pswd != pswd_c:
             return render_template('signup.html', error_message="Passwords do not match")
+        elif len(pswd) < 8:
+            return render_template('signup.html', error_message="Password must be longer than 8 characters")
 
     return render_template('signup.html')
 
@@ -134,6 +136,10 @@ def submit_review(isbn):
 
     review = request.form.get("inputReview")
     rating = request.form.get("inputRating")
+
+    if not review or len(review) < 50:
+        return redirect('/book/' + isbn)
+
     if int(rating) > 5:
         rating = 5
     elif int(rating) < 0:

@@ -1,0 +1,16 @@
+
+dl {
+    display: inline-block;
+
+    dt {
+        float: left;
+        clear: left;
+        margin-right: 5px;
+        background: lightgray;
+    }
+
+    dd {
+        margin-left: 180px;
+        width: 50%;
+    }
+}
